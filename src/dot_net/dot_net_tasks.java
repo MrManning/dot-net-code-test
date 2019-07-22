@@ -1,13 +1,14 @@
 package dot_net;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class dot_net_tasks {
     int letterOccurrences(char letter, String input) {
         int count = 0;
         for(int i = 0; i < input.length(); i++) {
-            if(letter == input.charAt(i)) {
+            if(Character.toLowerCase(letter) == input.toLowerCase().charAt(i)) {
                 count++;
             }
         }
@@ -24,22 +25,17 @@ class dot_net_tasks {
         return true;
     }
 
-    List<Integer> wordOccurrence(List<String> censoredWords, String input) {
-        // String[] separated = input.split("\\s+");
-
-        List<String> separated = Arrays.asList(input.split("\\s+"));
+    String wordOccurrence(List<String> censoredWords, String input) {
+        String[] separated = input.toLowerCase().split("\\s+");
         Map<String, Integer> wordCount = new TreeMap<>();
         int total = 0;
 
         for(String censored : censoredWords) {
-            // long count = Arrays.stream(separated).filter(str -> str.contains(censored)).count();
-            // long count = separated.stream().filter(str -> str.contains(censored)).count();
-            // wordCount.put(censored, (int) count);
-
-            // System.out.println("word: " + censored + ": " + count);
+            wordCount.put(censored, 0);
             for(String word : separated) {
+                // System.out.println("(censored:" + censored + "-word:" + word + ") = " + word.contains(censored));
                 if(word.contains(censored)) {
-                    wordCount.merge(censored, 1, Integer::sum);
+                    wordCount.put(censored, wordCount.get(censored) + 1);
                     total++;
                 }
             }
@@ -53,11 +49,37 @@ class dot_net_tasks {
         }
 
         output.append("total: ").append(total);
-        System.out.println(output);
-
-        return new ArrayList<>(wordCount.values());
+        return output.toString();
     }
 
-//    validateInput
+    String censor(List<String> censoredWords, String text) {
+        StringBuilder censoredText = new StringBuilder(text);
+        for(String censored : censoredWords) {
+            Pattern p = Pattern.compile("\\b" + censored.toLowerCase() + "\\b");
+            Matcher m = p.matcher(text.toLowerCase());
+            while(m.find()) {
+                char[] charArr = new char[m.group().length() - 2];
+                Arrays.fill(charArr, '$');
+                censoredText.replace(m.start() + 1, m.end() - 1, new String(charArr));
+            }
+        }
+
+        return censoredText.toString();
+    }
+
+    String censorPalindrome(String text) {
+        List<String> palindromes = new ArrayList<>();
+        String[] separated = text.split("\\s+");
+
+        for(String sep : separated) {
+            if(isPalindrome(sep)) {
+                palindromes.add(sep);
+            }
+        }
+
+        return censor(palindromes, text);
+    }
+
+    //    validateInput
 //    storeInput
 }

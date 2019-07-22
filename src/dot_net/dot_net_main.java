@@ -75,11 +75,10 @@ public class dot_net_main {
                                     .replaceAll("\"|\\s", "")
                                     .split(","));
 
-                            System.out.println(censoredWords);
                             text = input.substring(input.indexOf("and \"") + 5, input.lastIndexOf("\""));
 
                             if(checkInput(text)) break;
-                        } catch(StringIndexOutOfBoundsException e) {
+                        } catch(StringIndexOutOfBoundsException | NegativeArraySizeException e) {
                             System.out.println("Invalid input! try again\n");
                         }
                     }
@@ -88,6 +87,25 @@ public class dot_net_main {
                     break;
                 case "3b":
                     System.out.println("\nChosen: Task 3b - Censor words");
+
+                    while(true) {
+                        try {
+                            System.out.print("Enter censored words and text: ");
+                            input = scanner.nextLine();
+
+                            censoredWords = Arrays.asList(input.substring(input.indexOf("{") + 1, input.indexOf("}"))
+                                    .replaceAll("\"|\\s", "")
+                                    .split(","));
+
+                            text = input.substring(input.indexOf("and \"") + 5, input.lastIndexOf("\""));
+
+                            if(checkInput(text)) break;
+                        } catch(StringIndexOutOfBoundsException e) {
+                            System.out.println("Invalid input! try again\n");
+                        }
+                    }
+
+                    System.out.println(tasks.censor(censoredWords, text));
                     break;
                 case "3c":
                     System.out.println("\nChosen: Task 3c - Censor palindrome word");
