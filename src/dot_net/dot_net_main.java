@@ -1,5 +1,7 @@
 package dot_net;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class dot_net_main {
@@ -28,60 +30,61 @@ public class dot_net_main {
                 case "1":
                     System.out.println("\nChosen: Task 1 - Letter occurrences");
 
-                    // OLD
-                    // String[] task;
-                    // char letter;
-                    // while(true) {
-                    //     try {
-                    //         System.out.print("Enter a letter and string comma separated: ");
-                    //         task = scanner.nextLine().split("\\s*,\\s*");
-                    //         letter = task[0].charAt(0);
-                    //
-                    //         if(!Character.isLetter(letter) || task[1].equals("")) {
-                    //             System.out.println("Invalid input! try again \n");
-                    //         } else {
-                    //             break;
-                    //         }
-                    //     } catch(StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
-                    //         System.out.println("Invalid input! try again \n");
-                    //     }
-                    // }
-
-                    // NEW
                     char letter;
-                    String sentence;
+                    String text;
                     while(true) {
                         try {
-                            System.out.print("Enter letter and string: ");
+                            System.out.print("Enter letter and text: ");
                             input = scanner.nextLine();
 
                             letter = input.substring(input.indexOf("\'") + 1, input.lastIndexOf("\'")).charAt(0);
-                            sentence = input.substring(input.indexOf("\"") + 1, input.lastIndexOf("\""));
+                            text = input.substring(input.indexOf("\"") + 1, input.lastIndexOf("\""));
 
-                            if(!Character.isLetter(letter) || sentence.equals("")) {
+                            if(!Character.isLetter(letter) || text.equals("")) {
                                 System.out.println("Invalid input! try again\n");
                             } else {
                                 break;
                             }
                         } catch(StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
                             System.out.println("Invalid input! try again\n");
-                            e.printStackTrace();
                         }
                     }
 
-                    System.out.println(tasks.letterOccurrences(letter, sentence));
+                    System.out.println(tasks.letterOccurrences(letter, text));
                     break;
                 case "2":
                     System.out.println("\nChosen: Task 2 - Palindrome check");
-                    System.out.print("Enter string: ");
 
-                    input = scanner.nextLine();
+                    do {
+                        System.out.print("Enter text: ");
+                        input = scanner.nextLine();
+                    } while(!checkInput(input));
+
                     System.out.println(tasks.isPalindrome(input));
                     break;
                 case "3a":
                     System.out.println("\nChosen: Task 3a - Word occurrences");
-                    System.out.print("Enter list as space separated words followed by comma separated string");
-                    System.out.print("Example input: dog cat large, I have a large dog and a small cat");
+
+                    List<String> censoredWords;
+                    while(true) {
+                        try {
+                            System.out.print("Enter censored words and text: ");
+                            input = scanner.nextLine();
+
+                            censoredWords = Arrays.asList(input.substring(input.indexOf("{") + 1, input.indexOf("}"))
+                                    .replaceAll("\"|\\s", "")
+                                    .split(","));
+
+                            System.out.println(censoredWords);
+                            text = input.substring(input.indexOf("and \"") + 5, input.lastIndexOf("\""));
+
+                            if(checkInput(text)) break;
+                        } catch(StringIndexOutOfBoundsException e) {
+                            System.out.println("Invalid input! try again\n");
+                        }
+                    }
+
+                    System.out.println(tasks.wordOccurrence(censoredWords, text));
                     break;
                 case "3b":
                     System.out.println("\nChosen: Task 3b - Censor words");
@@ -93,5 +96,14 @@ public class dot_net_main {
                     System.out.println("Select existing option!");
             }
         }
+    }
+
+    private static boolean checkInput(String input) {
+        if(input.equals("")) {
+            System.out.println("Invalid input! try again\n");
+        } else {
+            return true;
+        }
+        return false;
     }
 }
