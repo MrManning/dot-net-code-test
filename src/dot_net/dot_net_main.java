@@ -14,9 +14,9 @@ public class dot_net_main {
                     "Task 3a - Word occurrences \n" +
                     "Task 3b - Censor words \n" +
                     "Task 3c - Censor palindrome word \n" +
-                    "exit - leave program"
+                    "exit 0 - Leave program"
 
-            //        Task 3d - Receive censored words from external file, command line
+            //        Task 3d - Receive censored words from external file, command line (text input), google assistant/siri (voice input)
             );
             System.out.print("\n\nPlease enter task value: ");
 
@@ -24,7 +24,7 @@ public class dot_net_main {
             String input = scanner.nextLine();
 
             switch(input) {
-                case "exit":
+                case "0":
                     System.exit(0);
                     break;
                 case "1":
@@ -109,6 +109,21 @@ public class dot_net_main {
                     break;
                 case "3c":
                     System.out.println("\nChosen: Task 3c - Censor palindrome word");
+
+                    while(true) {
+                        try {
+                            System.out.print("Enter text: ");
+                            input = scanner.nextLine();
+
+                            text = input.substring(input.indexOf("\"") + 1, input.lastIndexOf("\""));
+
+                            if(checkInput(text)) break;
+                        } catch(StringIndexOutOfBoundsException e) {
+                            System.out.println("Invalid input! try again\n");
+                        }
+                    }
+
+                    System.out.println(tasks.censorPalindrome(text));
                     break;
                 default:
                     System.out.println("Select existing option!");
