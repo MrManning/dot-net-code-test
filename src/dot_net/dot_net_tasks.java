@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class dot_net_tasks {
+class dot_net_tasks extends OutputPrinter {
     int letterOccurrences(char letter, String input) {
         int count = 0;
         for(int i = 0; i < input.length(); i++) {
@@ -25,31 +25,20 @@ class dot_net_tasks {
         return true;
     }
 
-    String wordOccurrence(List<String> censoredWords, String input) {
+    void wordOccurrence(List<String> censoredWords, String input) {
         String[] separated = input.toLowerCase().split("\\s+");
         Map<String, Integer> wordCount = new TreeMap<>();
-        int total = 0;
 
         for(String censored : censoredWords) {
             wordCount.put(censored, 0);
             for(String word : separated) {
-                // System.out.println("(censored:" + censored + "-word:" + word + ") = " + word.contains(censored));
                 if(word.contains(censored)) {
                     wordCount.put(censored, wordCount.get(censored) + 1);
-                    total++;
                 }
             }
         }
 
-        StringBuilder output = new StringBuilder();
-        for(Map.Entry<String,Integer> entry : wordCount.entrySet()) {
-            String key = entry.getKey();
-            Integer value = entry.getValue();
-            output.append(key).append(": ").append(value).append(", ");
-        }
-
-        output.append("total: ").append(total);
-        return output.toString();
+        printOutputToConsole(wordCount);
     }
 
     String censor(List<String> censoredWords, String text) {
@@ -79,7 +68,4 @@ class dot_net_tasks {
 
         return censor(palindromes, text);
     }
-
-    //    validateInput
-//    storeInput
 }

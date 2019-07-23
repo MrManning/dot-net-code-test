@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -72,7 +73,7 @@ public class dot_net_tasksTest {
         actual = tasks.censor(censoredWords, "Short, small and tall people are all the same but smaller and taller people are different.");
         assertThat(actual, is(not(equalTo("S$$$t, s$$$l and t$$l people are all the same but s$$$ler and t$$ler people are different."))));
 
-        censoredWords = Arrays.asList("");
+        censoredWords = Collections.singletonList("");
         expectedException.expect(NegativeArraySizeException.class);
         actual = tasks.censor(censoredWords, "Short, small and tall people are all the same but smaller and taller people are different.");
     }
