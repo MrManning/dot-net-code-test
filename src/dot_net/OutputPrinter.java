@@ -3,11 +3,11 @@ package dot_net;
 import java.util.Map;
 
 class OutputPrinter {
-    String printOutputToConsole(String output) {
-        return output;
+    void printOutputToConsole(String output) {
+        System.out.println(output);
     }
 
-    String printOutputToConsole(Map<String, Integer> theMap) {
+    void printOutputToConsole(Map<String, Integer> theMap) {
         StringBuilder output = new StringBuilder();
         for(Map.Entry<String, Integer> entry : theMap.entrySet()) {
             String key = entry.getKey();
@@ -17,6 +17,6 @@ class OutputPrinter {
         int sum = theMap.values().stream().mapToInt(i -> i).sum();
         output.append("total: ").append(sum);
 
-        return output.toString();
+        System.out.println(output.toString());
     }
 }

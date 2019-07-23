@@ -1,13 +1,11 @@
+// TODO Change me
 package dot_net;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
+// Todo Change me
 public class dot_net_main {
-    public static void main(String[] args) {
-        dot_net_tasks tasks = new dot_net_tasks();
+    public static void main(String[] args) throws InvalidInput {
         while(true) {
             System.out.print("\nOptions: \n" +
                     "Task 1 - Letter occurrences \n" +
@@ -25,35 +23,30 @@ public class dot_net_main {
             String input = scanner.nextLine();
 
             switch(input) {
-                case "0":
+                case "0": {
                     System.exit(0);
                     break;
-                case "1":
+                }
+                case "1": {
                     System.out.println("\nChosen: Task 1 - Letter occurrences");
+                    Occurrences occur;
 
-                    // Occurrences occur = new LetterOccurrences();
+                    while(true) {
+                        System.out.print("Enter letter and text: ");
 
-                    // while(true) {
-                    //     try {
-                    //         System.out.print("Enter letter and text: ");
-                    //         input = scanner.nextLine();
-                    //
-                    //         letter = input.substring(input.indexOf("\'") + 1, input.lastIndexOf("\'")).charAt(0);
-                    //         text = input.substring(input.indexOf("\"") + 1, input.lastIndexOf("\""));
-                    //
-                    //         if(!Character.isLetter(letter) || text.equals("")) {
-                    //             System.out.println("Invalid input! try again\n");
-                    //         } else {
-                    //             break;
-                    //         }
-                    //     } catch(StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
-                    //         System.out.println("Invalid input! try again\n");
-                    //     }
-                    // }
+                        try {
+                            occur = new LetterOccurrences(scanner.nextLine());
+                            break;
+                        } catch(InvalidInput invalidInput) {
+                            System.err.print(invalidInput.getMessage() + "\n");
+                        }
+                    }
 
-                    // System.out.println(tasks.letterOccurrences(letter, text));
+                    occur.countOccurrences();
+
                     break;
-                case "2":
+                }
+                case "2": {
                     System.out.println("\nChosen: Task 2 - Palindrome check");
 
                     // do {
@@ -64,33 +57,27 @@ public class dot_net_main {
                     // System.out.println(tasks.isPalindrome(input));
 
                     break;
-                case "3a":
+                }
+                case "3a": {
                     System.out.println("\nChosen: Task 3a - Word occurrences");
+                    Occurrences occur;
 
-                    // List<String> censoredWords;
-                    // while(true) {
-                    //     try {
-                    //         System.out.print("Enter censored words and text: ");
-                    //         input = scanner.nextLine();
-                    //
-                    //         censoredWords = Arrays.asList(input.substring(input.indexOf("{") + 1, input.indexOf("}"))
-                    //                 .replaceAll("\"|\\s", "")
-                    //                 .split(","));
-                    //
-                    //         text = input.substring(input.indexOf("and \"") + 5, input.lastIndexOf("\""));
-                    //
-                    //         if(checkInput(text) && !(censoredWords.size() == 1 && "".equals(censoredWords.get(0)))) {
-                    //             break;
-                    //         }
-                    //     } catch(StringIndexOutOfBoundsException | NegativeArraySizeException e) {
-                    //         System.out.println("Invalid input! try again\n");
-                    //     }
-                    // }
-                    //
-                    // System.out.println(tasks.wordOccurrence(censoredWords, text));
+                    while(true) {
+                        System.out.print("Enter censored words and text: ");
+
+                        try {
+                            occur = new WordOccurrences(scanner.nextLine());
+                            break;
+                        } catch(InvalidInput invalidInput) {
+                            System.err.print(invalidInput.getMessage() + "\n");
+                        }
+                    }
+
+                    occur.countOccurrences();
 
                     break;
-                case "3b":
+                }
+                case "3b": {
                     System.out.println("\nChosen: Task 3b - Censor words");
 
                     // while(true) {
@@ -115,7 +102,8 @@ public class dot_net_main {
                     // System.out.println(tasks.censor(censoredWords, text));
 
                     break;
-                case "3c":
+                }
+                case "3c": {
                     System.out.println("\nChosen: Task 3c - Censor palindrome word");
 
                     // while(true) {
@@ -134,8 +122,10 @@ public class dot_net_main {
                     // System.out.println(tasks.censorPalindrome(text));
 
                     break;
-                default:
+                }
+                default: {
                     System.out.println("Select existing option!");
+                }
             }
         }
     }

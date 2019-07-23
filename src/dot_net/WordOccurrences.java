@@ -1,40 +1,45 @@
 package dot_net;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class WordOccurrences extends Occurrences implements UserInput {
     private final String text;
     private final List<String> censoredWords;
 
-    public WordOccurrences(String rawInput) {
-        checkInput(rawInput);
-
-        this.text = rawInput.substring(rawInput.indexOf("and \"") + 5, rawInput.lastIndexOf("\""));
-        this.censoredWords = Arrays.asList(rawInput.substring(rawInput.indexOf("{") + 1, rawInput.indexOf("}"))
-                .replaceAll("\"|\\s", "")
-                .split(","));
+    WordOccurrences(String rawInput) throws InvalidInput {
+        if(checkInput(rawInput)) {
+            this.text = getTextSubstring(rawInput, "and \"", 5, rawInput.lastIndexOf("\""));
+            this.censoredWords = getCensoredWordsSubstring(rawInput);
+        } else {
+            throw new InvalidInput("Invalid input!");
+        }
     }
 
-    private void checkInput(String rawInput) {
-        isValid(rawInput);
+    private List<String> getCensoredWordsSubstring(String rawInput) {
+        return Arrays.asList(getTextSubstring(rawInput, "{", 1, rawInput.indexOf("}")).replaceAll("\"|\\s", "").split(","));
+    }
+
+    private String getTextSubstring(String rawInput, String s, int startIndex, int endIndex) {
+        return rawInput.substring(rawInput.indexOf(s) + startIndex, endIndex);
+    }
+
+    private boolean checkInput(String rawInput) {
+        return isValid(rawInput);
     }
 
     @Override
-    public void isValid(String rawInput) {
-        List<String> tempWords = Arrays.asList(rawInput.substring(rawInput.indexOf("{") + 1, rawInput.indexOf("}"))
-                .replaceAll("\"|\\s", "")
-                .split(","));
+    public boolean isValid(String rawInput) {
+        try {
+            List<String> tempWords = getCensoredWordsSubstring(rawInput);
+            String tempText = getTextSubstring(rawInput, "and \"", 5, rawInput.lastIndexOf("\""));
 
-        String tempText = rawInput.substring(rawInput.indexOf("and \"") + 5, rawInput.lastIndexOf("\""));
-
-        if(tempWords.size() == 1 && "".equals(tempWords.get(0))) {
-            throw new IllegalArgumentException("Word list is empty");
-        } else if(tempText.equals("")) {
-            throw new IllegalArgumentException("Second argument is empty");
+            if(tempWords.size() == 1 && "".equals(tempWords.get(0)) || tempText.equals("")) {
+                return false;
+            }
+        } catch(StringIndexOutOfBoundsException e) {
+            return false;
         }
+        return true;
     }
 
     @Override

@@ -1,30 +1,41 @@
 package dot_net;
 
+import java.util.stream.IntStream;
+
 public class LetterOccurrences extends Occurrences implements UserInput {
-    private final String text;
-    private final char letter;
+    private String text;
+    private char letter;
 
-    LetterOccurrences(String rawInput) {
-        checkInput(rawInput);
-
-        this.text = rawInput.substring(rawInput.indexOf("\"") + 1, rawInput.lastIndexOf("\""));
-        this.letter = rawInput.substring(rawInput.indexOf("\'") + 1, rawInput.lastIndexOf("\'")).charAt(0);
+    LetterOccurrences(String rawInput) throws InvalidInput {
+        if(checkInput(rawInput)) {
+            this.text = getTextSubstring(rawInput, "\"");
+            this.letter = getTextSubstring(rawInput, "\'").charAt(0);
+        } else {
+            throw new InvalidInput("Invalid input!");
+        }
     }
 
-    private void checkInput(String rawInput) {
-        isValid(rawInput);
+    private String getTextSubstring(String rawInput, String s) {
+        return rawInput.substring(rawInput.indexOf(s) + 1, rawInput.lastIndexOf(s));
+    }
+
+    private boolean checkInput(String rawInput) {
+        return isValid(rawInput);
     }
 
     @Override
-    public void isValid(String rawInput) {
-        char tempLetter = rawInput.substring(rawInput.indexOf("\'") + 1, rawInput.lastIndexOf("\'")).charAt(0);
-        String tempText = rawInput.substring(rawInput.indexOf("\"") + 1, rawInput.lastIndexOf("\""));
+    public boolean isValid(String rawInput) {
+        try {
+            char tempLetter = getTextSubstring(rawInput, "\'").charAt(0);
+            String tempText = getTextSubstring(rawInput, "\"");
 
-        if(!Character.isLetter(tempLetter)) {
-            throw new IllegalArgumentException("First argument is not a letter");
-        } else if(tempText.equals("")) {
-            throw new IllegalArgumentException("Second argument is empty");
+            if(!Character.isLetter(tempLetter) || tempText.equals("")) {
+                return false;
+            }
+        } catch(StringIndexOutOfBoundsException e) {
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -35,6 +46,8 @@ public class LetterOccurrences extends Occurrences implements UserInput {
                 count++;
             }
         }
+
+        // (int) IntStream.range(0, text.length()).filter(i -> Character.toLowerCase(letter) == text.toLowerCase().charAt(i)).count();
         printOutputToConsole(String.valueOf(count));
     }
 }

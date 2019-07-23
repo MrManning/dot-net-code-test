@@ -5,15 +5,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class dot_net_tasks extends OutputPrinter {
-    int letterOccurrences(char letter, String input) {
-        int count = 0;
-        for(int i = 0; i < input.length(); i++) {
-            if(Character.toLowerCase(letter) == input.toLowerCase().charAt(i)) {
-                count++;
-            }
-        }
-        return count;
-    }
 
     boolean isPalindrome(String input) {
         String stripped = input.replaceAll("\\s|\\p{P}", "").toLowerCase();
@@ -23,22 +14,6 @@ class dot_net_tasks extends OutputPrinter {
             }
         }
         return true;
-    }
-
-    void wordOccurrence(List<String> censoredWords, String input) {
-        String[] separated = input.toLowerCase().split("\\s+");
-        Map<String, Integer> wordCount = new TreeMap<>();
-
-        for(String censored : censoredWords) {
-            wordCount.put(censored, 0);
-            for(String word : separated) {
-                if(word.contains(censored)) {
-                    wordCount.put(censored, wordCount.get(censored) + 1);
-                }
-            }
-        }
-
-        printOutputToConsole(wordCount);
     }
 
     String censor(List<String> censoredWords, String text) {
