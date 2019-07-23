@@ -1,4 +1,4 @@
-package dot_net;
+package DotNet;
 
 import java.util.*;
 
@@ -15,12 +15,12 @@ public class WordOccurrences extends Occurrences implements UserInput {
         }
     }
 
-    private List<String> getCensoredWordsSubstring(String rawInput) {
-        return Arrays.asList(getTextSubstring(rawInput, "{", 1, rawInput.indexOf("}")).replaceAll("\"|\\s", "").split(","));
+    private String getTextSubstring(String rawInput, String textToIndex, int startIndex, int endIndex) {
+        return rawInput.substring(rawInput.indexOf(textToIndex) + startIndex, endIndex);
     }
 
-    private String getTextSubstring(String rawInput, String s, int startIndex, int endIndex) {
-        return rawInput.substring(rawInput.indexOf(s) + startIndex, endIndex);
+    private List<String> getCensoredWordsSubstring(String rawInput) {
+        return Arrays.asList(getTextSubstring(rawInput, "{", 1, rawInput.indexOf("}")).replaceAll("\"|\\s", "").split(","));
     }
 
     private boolean checkInput(String rawInput) {

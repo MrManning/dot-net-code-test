@@ -1,15 +1,9 @@
-package dot_net;
+package DotNet;
 
-import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -19,12 +13,6 @@ import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
 public class dot_net_tasksTest {
-    private dot_net_tasks tasks;
-
-    @Before
-    public void setUp() {
-        tasks = new dot_net_tasks();
-    }
 
     @Test
     public void letterOccurrences() {

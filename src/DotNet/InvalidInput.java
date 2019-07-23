@@ -1,4 +1,4 @@
-package dot_net;
+package DotNet;
 
 class InvalidInput extends Throwable {
     InvalidInput(String errorMsg) {

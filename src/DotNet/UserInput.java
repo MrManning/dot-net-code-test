@@ -1,4 +1,4 @@
-package dot_net;
+package DotNet;
 
 public interface UserInput {
     boolean isValid(String rawInput);

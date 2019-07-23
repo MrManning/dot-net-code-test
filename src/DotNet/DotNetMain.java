@@ -1,10 +1,8 @@
-// TODO Change me
-package dot_net;
+package DotNet;
 
 import java.util.Scanner;
 
-// Todo Change me
-public class dot_net_main {
+public class DotNetMain {
     public static void main(String[] args) throws InvalidInput {
         while(true) {
             System.out.print("\nOptions: \n" +
@@ -43,19 +41,24 @@ public class dot_net_main {
                     }
 
                     occur.countOccurrences();
-
                     break;
                 }
                 case "2": {
                     System.out.println("\nChosen: Task 2 - Palindrome check");
+                    Palindromes palindromes;
 
-                    // do {
-                    //     System.out.print("Enter text: ");
-                    //     input = scanner.nextLine();
-                    // } while(!checkInput(input));
-                    //
-                    // System.out.println(tasks.isPalindrome(input));
+                    while(true) {
+                        System.out.print("Enter text: ");
 
+                        try {
+                            palindromes = new Palindromes(scanner.nextLine());
+                            break;
+                        } catch(InvalidInput invalidInput) {
+                            System.err.print(invalidInput.getMessage() + "\n");
+                        }
+                    }
+
+                    System.out.println(palindromes.isPalindrome());
                     break;
                 }
                 case "3a": {
@@ -74,53 +77,44 @@ public class dot_net_main {
                     }
 
                     occur.countOccurrences();
-
                     break;
                 }
                 case "3b": {
                     System.out.println("\nChosen: Task 3b - Censor words");
+                    Censor censor;
 
-                    // while(true) {
-                    //     try {
-                    //         System.out.print("Enter censored words and text: ");
-                    //         input = scanner.nextLine();
-                    //
-                    //         text = input.substring(input.indexOf("and \"") + 5, input.lastIndexOf("\""));
-                    //         censoredWords = Arrays.asList(input.substring(input.indexOf("{") + 1, input.indexOf("}"))
-                    //                 .replaceAll("\"|\\s", "")
-                    //                 .split(","));
-                    //
-                    //         if(checkInput(text) && !(censoredWords.size() == 1 && "".equals(censoredWords.get(0)))) {
-                    //             break;
-                    //         }
-                    //
-                    //     } catch(StringIndexOutOfBoundsException e) {
-                    //         System.out.println("Invalid input! try again\n");
-                    //     }
-                    // }
-                    //
-                    // System.out.println(tasks.censor(censoredWords, text));
+                    while(true) {
+                        System.out.print("Enter censored words and text: ");
 
+                        try {
+                            censor = new Censor(scanner.nextLine());
+                            break;
+                        } catch(InvalidInput invalidInput) {
+                            System.err.print(invalidInput.getMessage() + "\n");
+                        }
+                    }
+
+                    System.out.println(censor.censorWords(censor.getCensoredWords(), censor.getText()));
                     break;
                 }
                 case "3c": {
                     System.out.println("\nChosen: Task 3c - Censor palindrome word");
+                    Palindromes palindromes;
+                    Censor censor = new Censor();
 
-                    // while(true) {
-                    //     try {
-                    //         System.out.print("Enter text: ");
-                    //         input = scanner.nextLine();
-                    //
-                    //         text = input.substring(input.indexOf("\"") + 1, input.lastIndexOf("\""));
-                    //
-                    //         if(checkInput(text)) break;
-                    //     } catch(StringIndexOutOfBoundsException e) {
-                    //         System.out.println("Invalid input! try again\n");
-                    //     }
-                    // }
-                    //
-                    // System.out.println(tasks.censorPalindrome(text));
+                    while(true) {
+                        System.out.print("Enter text: ");
 
+                        try {
+                            palindromes = new Palindromes(scanner.nextLine());
+
+                            break;
+                        } catch(InvalidInput invalidInput) {
+                            System.err.print(invalidInput.getMessage() + "\n");
+                        }
+                    }
+
+                    System.out.println(censor.censorWords(palindromes.findPalindromes(), palindromes.getText()));
                     break;
                 }
                 default: {

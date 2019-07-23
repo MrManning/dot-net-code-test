@@ -1,4 +1,4 @@
-package dot_net;
+package DotNet;
 
 import java.util.Map;
 
