@@ -37,7 +37,7 @@ public class LetterOccurrences extends Occurrences implements UserInput {
     }
 
     @Override
-    void countOccurrences() {
+    String countOccurrences() {
         int count = 0;
         for(int i = 0; i < text.length(); i++) {
             if(Character.toLowerCase(letter) == text.toLowerCase().charAt(i)) {
@@ -47,5 +47,6 @@ public class LetterOccurrences extends Occurrences implements UserInput {
 
         // (int) IntStream.range(0, text.length()).filter(i -> Character.toLowerCase(letter) == text.toLowerCase().charAt(i)).count();
         printOutputToConsole(String.valueOf(count));
+        return String.valueOf(count);
     }
 }

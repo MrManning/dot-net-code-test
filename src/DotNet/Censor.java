@@ -23,11 +23,26 @@ class Censor extends OutputPrinter implements UserInput {
         return isValid(rawInput);
     }
 
-    public String getText() {
+    @Override
+    public boolean isValid(String rawInput) {
+        try {
+            List<String> tempCensoredWords = Arrays.asList(rawInput.substring(rawInput.indexOf("{") + 1, rawInput.indexOf("}")).replaceAll("\"|\\s", "").split(","));
+            String tempText = rawInput.substring(rawInput.indexOf("and \"") + 5, rawInput.lastIndexOf("\""));
+
+            if(tempCensoredWords.size() == 1 && "".equals(tempCensoredWords.get(0)) || tempText.equals("")) {
+                return false;
+            }
+        } catch(StringIndexOutOfBoundsException e) {
+            return false;
+        }
+        return true;
+    }
+
+    String getText() {
         return text;
     }
 
-    public List<String> getCensoredWords() {
+    List<String> getCensoredWords() {
         return censoredWords;
     }
 
@@ -44,33 +59,5 @@ class Censor extends OutputPrinter implements UserInput {
         }
 
         return censoredText.toString();
-    }
-
-    // String censorWords(String text) {
-    //     List<String> palindromes = new ArrayList<>();
-    //     String[] separated = text.split("\\s+");
-    //
-    //     for(String sep : separated) {
-    //         if(isPalindrome(sep)) {
-    //             palindromes.add(sep);
-    //         }
-    //     }
-    //
-    //     return censorWords(palindromes, text);
-    // }
-
-    @Override
-    public boolean isValid(String rawInput) {
-        try {
-            List<String> tempCensoredWords = Arrays.asList(rawInput.substring(rawInput.indexOf("{") + 1, rawInput.indexOf("}")).replaceAll("\"|\\s", "").split(","));
-            String tempText = rawInput.substring(rawInput.indexOf("and \"") + 5, rawInput.lastIndexOf("\""));
-
-            if(tempCensoredWords.size() == 1 && "".equals(tempCensoredWords.get(0)) || tempText.equals("")) {
-                return false;
-            }
-        } catch(StringIndexOutOfBoundsException e) {
-            return false;
-        }
-        return true;
     }
 }

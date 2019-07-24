@@ -3,7 +3,7 @@ package DotNet;
 import java.util.Scanner;
 
 public class DotNetMain {
-    public static void main(String[] args) throws InvalidInput {
+    public static void main(String[] args) {
         while(true) {
             System.out.print("\nOptions: \n" +
                     "Task 1 - Letter occurrences \n" +
@@ -76,7 +76,7 @@ public class DotNetMain {
                         }
                     }
 
-                    occur.countOccurrences();
+                    System.out.println(occur.countOccurrences());
                     break;
                 }
                 case "3b": {

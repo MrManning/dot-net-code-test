@@ -8,10 +8,14 @@ public class Palindromes implements UserInput {
 
     Palindromes(String rawInput) throws InvalidInput {
         if(checkInput(rawInput)) {
-            this.text = rawInput.substring(rawInput.indexOf("\"") + 1, rawInput.lastIndexOf("\""));
+            this.text = getTextSubstring(rawInput);
         } else {
             throw new InvalidInput("Invalid input!");
         }
+    }
+
+    private String getTextSubstring(String rawInput) {
+        return rawInput.substring(rawInput.indexOf("\"") + 1, rawInput.lastIndexOf("\""));
     }
 
     private boolean checkInput(String rawInput) {
@@ -21,7 +25,7 @@ public class Palindromes implements UserInput {
     @Override
     public boolean isValid(String rawInput) {
         try {
-            String tempText = rawInput.substring(rawInput.indexOf("\"") + 1, rawInput.lastIndexOf("\""));
+            String tempText = getTextSubstring(rawInput);
 
             if(tempText.equals("")) {
                 return false;
@@ -32,7 +36,7 @@ public class Palindromes implements UserInput {
         return true;
     }
 
-    public String getText() {
+    String getText() {
         return text;
     }
 

@@ -5,6 +5,7 @@ import java.util.*;
 public class WordOccurrences extends Occurrences implements UserInput {
     private final String text;
     private final List<String> censoredWords;
+    Map<String, Integer> wordCount = new TreeMap<>();
 
     WordOccurrences(String rawInput) throws InvalidInput {
         if(checkInput(rawInput)) {
@@ -43,9 +44,9 @@ public class WordOccurrences extends Occurrences implements UserInput {
     }
 
     @Override
-    void countOccurrences() {
+    String countOccurrences() {
         String[] separated = text.toLowerCase().split("\\s+");
-        Map<String, Integer> wordCount = new TreeMap<>();
+
 
         for(String censored : censoredWords) {
             wordCount.put(censored, 0);
@@ -56,6 +57,16 @@ public class WordOccurrences extends Occurrences implements UserInput {
             }
         }
 
-        printOutputToConsole(wordCount);
+        StringBuilder output = new StringBuilder();
+        for(Map.Entry<String, Integer> entry : wordCount.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            output.append(key).append(": ").append(value).append(", ");
+        }
+        int sum = wordCount.values().stream().mapToInt(i -> i).sum();
+        output.append("total: ").append(sum);
+
+        printOutputToConsole(output.toString());
+        return output.toString();
     }
 }
