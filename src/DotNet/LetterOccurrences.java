@@ -1,5 +1,7 @@
 package DotNet;
 
+import java.util.stream.IntStream;
+
 public class LetterOccurrences extends Occurrences implements UserInput {
     private String text;
     private char letter;
@@ -38,14 +40,8 @@ public class LetterOccurrences extends Occurrences implements UserInput {
 
     @Override
     String countOccurrences() {
-        int count = 0;
-        for(int i = 0; i < text.length(); i++) {
-            if(Character.toLowerCase(letter) == text.toLowerCase().charAt(i)) {
-                count++;
-            }
-        }
+        int count = (int) IntStream.range(0, text.length()).filter(i -> Character.toLowerCase(letter) == text.toLowerCase().charAt(i)).count();
 
-        // (int) IntStream.range(0, text.length()).filter(i -> Character.toLowerCase(letter) == text.toLowerCase().charAt(i)).count();
         printOutputToConsole(String.valueOf(count));
         return String.valueOf(count);
     }

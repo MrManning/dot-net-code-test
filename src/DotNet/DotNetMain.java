@@ -12,8 +12,6 @@ public class DotNetMain {
                     "Task 3b - Censor words \n" +
                     "Task 3c - Censor palindrome word \n" +
                     "exit 0 - Leave program"
-
-            //        Task 3d - file input (either a file browser or by entering the filename), text input (from command line or application input), voice input (possibly using sphinx or something similar)
             );
             System.out.print("\n\nPlease enter task value: ");
 
@@ -76,7 +74,7 @@ public class DotNetMain {
                         }
                     }
 
-                    System.out.println(occur.countOccurrences());
+                    occur.countOccurrences();
                     break;
                 }
                 case "3b": {
